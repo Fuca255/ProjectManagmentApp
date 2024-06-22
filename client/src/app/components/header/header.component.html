@@ -1,0 +1,37 @@
+<div class="wrapper">
+    <div *ngIf="role!=='Admin'" class="notifications_wrapper">
+        <button (click)="toggleNotifications()">
+            <i class="fa fa-bell" pBadge pBadge [badgeDisabled]="notifications.length < 1" [value]="notifications.length" severity="info"></i>
+        </button>
+        <div class="notifications" *ngIf="notificationsOpened">
+            <div *ngIf="notifications.length > 0" >
+                <div class="notification" *ngFor="let notification of notifications">
+                    <p style="font-family: 'Poppins', sans-serif; font-size: 16px;"><b>{{notification.title}}</b></p>
+                    <p style="font-family: 'Poppins', sans-serif; font-size: 14px;margin-top: 5px;">{{notification.description}}</p>
+                    <div class="date_read" style="margin-top: 5px;">
+                        <p style="font-family: 'Poppins', sans-serif; font-size: 12px;"><b>{{notification.dateSent.toDateString()}}</b></p>
+                        <button (click)="updateNotification(notification)" class="notification_button">Read</button>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; height: 100px;" *ngIf="notifications.length === 0" >
+                There is no new notifications
+            </div>
+        </div>
+    </div>
+    <div class="info">
+        
+        <div id = 'name_logout'>
+            <p>{{ (firstname && lastname) ? (firstname + ' ' + lastname) : fullname }}</p>
+        </div>
+        <p>{{ jobTitle ? jobTitle : role }}</p>
+        
+    </div>
+    <div class="picture" (click)="toggleMenu()">
+        <img class="pfp" [src]="picture" />
+        <div class="menu" *ngIf="isMenuVisible">
+            <p id="pfdetails" class="menu-item"  (click)="openProfileOverlay(user.id,$event)"><img class="icon" src="../../../assets/profile-settings/pfsettings.svg"  (click)="openProfileOverlay(user.id,$event)"> Profile Details</p>
+            <app-logout class="menu_item"></app-logout>
+        </div>
+    </div>
+</div>

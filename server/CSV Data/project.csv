@@ -1,0 +1,11 @@
+﻿id,budget,description,end,last_state_changed,percentage,priority_id,spent,start,state,title,type
+1,10000,Redesign the company's website with a modern and responsive design.,5/30/2023 00:00,34:51.0,100,2,8000,1/15/2023 00:00,1,Website Redesign,Web
+2,12000,Plan and execute a targeted marketing campaign for new product launch.,6/30/2023 00:00,34:51.0,80,1,10000,2/10/2023 00:00,2,Marketing Campaign,Marketing
+3,15000,Develop a tool for analyzing large datasets and generating reports.,0001-01-01 00:00:00,34:51.0,60,3,12000,3/5/2023 00:00,3,Data Analysis Tool,Data
+4,18000,Enhance product features based on user feedback and market trends.,8/31/2023 00:00,34:51.0,100,2,15000,4/20/2023 00:00,1,Product Enhancement,Product
+5,8000,Develop an online training platform for employees.,0001-01-01 00:00:00,34:51.0,40,1,6000,5/15/2023 00:00,2,Training Platform,Training
+6,8000,Develop a mobile application for iOS and Android platforms.,0001-01-01 00:00:00,34:51.0,60,3,6000,6/15/2023 00:00,2,Mobile App Development,Mobile
+7,10000,Upgrade existing software to the latest version with new features.,9/30/2023 00:00,34:51.0,100,2,9000,7/1/2023 00:00,1,Software Upgrade,Software
+8,5000,Optimize database performance for faster data retrieval.,11/30/2023 00:00,34:51.0,40,1,3500,8/10/2023 00:00,2,Database Optimization,Database
+9,12000,Implement enhanced security measures for the company's network infrastructure.,12/15/2023 00:00,34:51.0,80,2,10000,9/5/2023 00:00,3,Network Security,Security
+10,15000,Develop a customer support system to streamline customer inquiries.,3/31/2024 00:00,34:51.0,30,3,8000,10/20/2023 00:00,4,Customer Support System,Support

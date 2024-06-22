@@ -1,0 +1,11 @@
+﻿id,IsActivated,department,email,job_title,lastname,name,organisation,password,password_reset_token,password_reset_token_expiry,profile_picture,role_id,username
+1,1,Department 1,john.doe@example.com,Business Manager,Doe,John,Organization A,password123,,,,1,johndoe
+2,1,Department 2,a.stanic@example.com,Business Manager,Stanic,Aleksandra,Organization B,password123,,,,1,aleksandra_stanic
+3,1,Department 1,alex.johnson@example.com,Worker,Johnson,Alex,Organization A,password123,,,,2,alexjohnson
+4,1,Department 2,emily.brown@example.com,Worker,Brown,Emily,Organization B,password123,,,,2,emilybrown
+5,1,Department 1,michael.wilson@example.com,Worker,Wilson,Michael,Organization A,password123,,,,2,michaelwilson
+6,1,Department 2,sarah.martinez@example.com,Worker,Martinez,Sarah,Organization B,password123,,,,2,sarahmartinez
+7,1,Department 1,jessica.lee@example.com,Team Lead,Lee,Jessica,Organization A,password123,,,,3,jessicalee
+8,1,Department 2,william.taylor@example.com,Team Lead,Taylor,William,Organization B,password123,,,,3,williamtaylor
+9,1,Department 1,olivia.anderson@example.com,Senior Team Lead,Anderson,Olivia,Organization A,password123,,,,4,oliviaanderson
+10,1,Department 2,ethan.moore@example.com,Senior Team Lead,Moore,Ethan,Organization B,password123,,,,5,ethanmoore

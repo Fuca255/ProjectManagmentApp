@@ -1,0 +1,27 @@
+<div id="prozor">
+    <br><br>
+    <h1>Sort</h1>
+    <form [formGroup]="sortGroup">
+        <div id="property">
+            Choose a sort category: <br>
+            <select name="choose-property" id="choose-property" formControlName="property">
+                <option value="">Last edited</option>
+                <option value="title">Title</option>
+                <option value="state">State</option>
+                <option value="priority">Priority</option>
+                <option value="start">Start date</option>
+                <option value="end">End date</option>
+                <option value="percentage">Completed percentage</option>
+            </select>
+        </div><br><br><br>
+        <div id="flag">
+            <span id="descending"><input type="radio" id="desc" formControlName="flag" value="1"> Desc.</span>
+            <span id="ascending"><input type="radio" id="asc" formControlName="flag" value="-1"> Asc.</span>
+        </div>
+    </form>
+    <div id="buttons">
+        <button id="reset" (click)="resetSort()">Reset</button>
+        <button id="cancel" (click)="cancelSort()">Cancel</button>
+        <button id="confirm" (click)="confirmSort()">Confirm</button>
+    </div>
+</div>

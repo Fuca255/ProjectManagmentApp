@@ -1,0 +1,48 @@
+<div class="wrapper">
+  <div id="header">
+    <h1>Members</h1>
+    <div class="search" [class.hide]="!members">
+      <input type="text" pInputText id="search-field" placeholder="Search for a user..." (keyup)="loadUsers()" [(ngModel)]="filter.searchUser">
+    </div>
+    <button id="registerButton" pButton type="button" (click)="showRegister()" label="Add new user"></button>
+    <button id="membersButton" pButton type="button" (click)="showMembers()" label="Show all users"></button>
+  </div>
+
+  <div class="content">
+    <div class="register" *ngIf="register">
+      <app-register [roles]="roles"></app-register>
+    </div>
+    <div class="members" *ngIf="members">
+      <div id="users">
+        <table class="tabela">
+          <thead>
+              <tr *ngFor="let user of users">
+                  <td id="profile-picture">
+                     <img id="pfp" [src]="user.profilePicturePath">
+                  </td>
+                  <td id="username">{{user.name + " " + user.lastname}}</td>
+                  <td id="dropdown" class = "drop" [ngClass]="{'default-role': isDefaultRole(user)}">
+                      <div class="dropbtn" [ngClass]="{'default-role': isDefaultRole(user)}">{{user.role.name}}</div>
+                          <div class="dropdown-content">
+                          <p *ngFor="let role of roles" (click)="updateUserRole(role, user)">{{role.name}}</p>
+                      </div>
+                  </td>
+                  <td class="drop" [ngClass]="{'default-activation': isDefaultActivation(user)}">
+                      <div *ngIf="user.isActivated" class="dropbtn">Activated</div>
+                      <div *ngIf="!user.isActivated" class="dropbtn">Deactivated</div>
+                      <div class="dropdown-content">
+                          <p (click)="changeActivationStatus(1,user)">Active</p>
+                          <p (click)="changeActivationStatus(0, user)">Deactive</p>
+                      </div>
+                  </td>
+                  <td class="update">
+                      <button (click)="sendUpdateRequest(user)">Update</button>
+                  </td>
+              </tr>
+          </thead>
+      </table>
+      </div>
+      <app-filter-user [filter]="filter" (sendFilterBack)="getFilter($event)"></app-filter-user>
+    </div>
+  </div>
+</div>

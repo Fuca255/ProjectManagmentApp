@@ -1,0 +1,39 @@
+<div class="login">
+  <ng-container *ngIf="!forgotPassword && !sent">
+    <h2>Hi, you need to login!</h2>
+    <br>
+    <div>
+      <input type="text" [(ngModel)]="loginObj.username" name="username" placeholder="Username">
+    </div>
+    <br>
+    <div>
+      <span id="lozinka">
+        <input type="{{ showPassword ? 'text' : 'password' }}" [(ngModel)]="loginObj.password" name="password" placeholder="Password" (keyup.enter)="onLogin()">
+        <img id="eye" [src]="showPassword ? 'assets/login/crossedeye.svg' : 'assets/login/eye.svg'" alt="" width="25" height="25" (click)="togglePasswordVisibility()">
+      </span>
+      <span id="fp" (click)="showForgotPasswordForm()">Forgot password?</span>
+    </div>
+    <p style="color: crimson;">{{errMessage}}</p>
+    <button (click)="onLogin()">Login</button>
+    <br>
+  </ng-container>
+
+  <ng-container *ngIf="forgotPassword">
+    <h2>Reset your password</h2>
+    <p id="fptext">Enter your email address and we'll send you a link to reset your password</p>
+    <div>
+      <input type="email" name="forgotPasswordEmail" placeholder="Enter your email" [(ngModel)]="forgotPasswordEmail" (ngModelChange)="validateEmail()">
+    </div>
+    <div *ngIf="buttonClicked && invalidEmail" style="color: crimson;">*Invalid email address</div>
+    <br>
+    <button (click)="sendResetPassword()">Send Reset Email</button>
+    <button (click)="cancelForgotPassword()">Cancel</button>
+  </ng-container>
+  
+  <ng-containter *ngIf="sent">
+    <h2>Check your inbox</h2>
+    <p id="fptext"> If the provided email exists in our system, a password reset email has been sent. If you encounter any issues, please contact komakaiproject&#64;gmail.com for assistance.</p>
+    <p id="pimg"><img id="emailsentimg" src="../../../assets/login/emailsent.svg"></p>
+    <button (click)="backToLogin()">Back to Login</button>
+  </ng-containter>
+</div>

@@ -1,0 +1,137 @@
+#tasks{
+  margin-top: 35px;
+  flex-grow: 1;
+  width: 100%;
+  padding: 40px 0px 0px 40px;
+}
+
+#task-header {
+  display: flex;
+}
+
+.search{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.task-container{
+  width: calc(100% - 80px);
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.task-list{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 200px);
+}
+
+.task-list .task{
+  width: 90%;
+}
+
+.fileri{
+  flex: 1;
+  max-width: 20%; 
+  display: flex;
+  padding: 0.5%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#title {
+  margin-right: 25vw;
+  font-family: 'Poppins',sans-serif;
+  color: #000;
+  font-size: 32px;
+  margin-top: 5px;
+  width: 20%;
+}
+
+#paginator{
+  text-align: center;
+}
+
+.pagination{
+  text-align: center;
+}
+
+.pagination a:hover{
+  cursor: pointer;
+}
+
+.page-item a:hover{
+  background-color: #0D6EFD;
+  color: white;
+}
+
+.page-input {
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  height: 33.98px;
+  width: 60px;
+  margin-left: 5px;
+  text-align: center;
+  color: #0D6EFD;
+}
+
+/* Media Queries */
+@media (min-width: 1630px) and (max-width: 1920px) {
+  .task-container {
+    flex-direction: row;
+    gap: 5px;
+  }
+  .task-list, .task {
+    width: 80%;
+  }
+  .fileri {
+    width: 20%;
+  }
+}
+
+@media (min-width: 1371px) and (max-width: 1630px) {
+  .task-container {
+    flex-direction: row;
+    gap: 0px;
+  }
+  .task-list, .task {
+    width: 69.5%;
+  }
+  .fileri {
+    width: 30.5%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1370px) {
+  .task-container {
+    flex-direction: row;
+    gap: 0px;
+  }
+  .task-list, .task {
+    width: 57%;
+  }
+  .fileri {
+    width: 43%;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 1024px) {
+  .task-container {
+    flex-direction: column;
+    width: 100%;
+  }
+  .task-list, .task {
+    width: 100%;
+  }
+  .fileri {
+    width: 100%;
+    max-width: 100%;
+  }
+}

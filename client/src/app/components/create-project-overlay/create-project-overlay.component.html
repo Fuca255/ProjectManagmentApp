@@ -1,0 +1,139 @@
+<div class="overlay-container">
+    <div class="error" *ngIf="submissionError">{{ submissionError }}</div>
+        <div class="overlay-content">
+            <div class="left">
+                <table>
+                    <tr>
+                        <th colspan="2">
+                            <span class="name">Project title</span>
+                            <input class="input-field" id="title" type="text" placeholder="  Enter project title" [(ngModel)]="projectObj.title" (blur)="titleTouched = true" #title="ngModel">
+                            <div *ngIf="!projectObj.title.trim() && titleTouched" class="error-message">* Please enter a project title.</div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <p><span class="name">Priority: </span></p>
+                            
+                            <select id="status-select" class="input-field" required [(ngModel)]="selectedPriorityId" (blur)="priorityTouched = true">
+                                <option *ngFor="let priority of priorities" [value]="priority.id">{{ priority.description }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="!selectedPriorityId && priorityTouched">* Priority is required</div>
+                        </th>
+                        <th>
+                            <p><span class="name" id="budget">Budget: </span></p>
+                            <input class="input-field" id="budget-input" type="number" placeholder="  Budget"  [(ngModel)]="projectObj.budget" min="0" (blur)="budgetTouched = true"> &nbsp;
+                            <select [(ngModel)]="selectedCurrency" class="input-field2">
+                                <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="projectObj.budget < 0 && budgetTouched">* Budget cannot be less than 0</div>
+                            <div class="error-message" *ngIf="projectObj.budget === null || projectObj.budget === undefined && budgetTouched">* Budget is required</div>
+                        </th>
+                        
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <p><span class="name" id="startdate">Start Date: </span></p>
+                            <p-calendar [(ngModel)]="projectObj.start" dateFormat="dd.mm.yy" placeholder="Select date" (blur)="startDateTouched = true"></p-calendar>
+                            <div class="error-message" *ngIf="!projectObj.start && startDateTouched">* Start Date is required</div>
+                        </th>
+                        <th>
+                            <p><span class="name" id="startdate">End Date: </span></p>
+                            <p-calendar [(ngModel)]="projectObj.end" dateFormat="dd.mm.yy"  placeholder="Select date" (blur)="endDateTouched = true"></p-calendar>
+                            <div class="error-message" *ngIf="!projectObj.end && endDateTouched">* End Date is required</div>
+                            
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <div class="info-message" *ngIf="projectObj.start && projectObj.end && isEndDateBeforeStartDate()">Note: End Date must be after Start Date</div>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div class="right">
+                <div class="description">
+                    <p><span class="name">Project description: </span></p>
+                    <textarea class="input-field" id="description" placeholder="  Write your description"  [(ngModel)]="projectObj.description"></textarea>
+                </div>
+                <!-- ovde -->
+                <div class="budget-team">
+                            <p><span class="name" id="team">Members: </span></p>
+                            <div class="custom-dropdown">
+                                <div class="selected-users">
+                                    <span *ngFor="let selectedUser of selectedUsers" class="selected-user">
+                                        <p>{{ selectedUser.name }} {{ selectedUser.lastname }}</p>
+                                        <span *ngIf="selectedUser.id != loggedInUserId" class="remove-user" (click)="removeSelectedUser(selectedUser)">X</span>
+                                    </span>
+                                </div>
+                                <input type="text" class="selected-option" (click)="toggleDropdown()" [(ngModel)]="searchQuery" placeholder="Select Members" [readonly]="!showDropdown">
+                                <div class="options" *ngIf="showDropdown">
+                                    <div class="member-option" *ngFor="let user of filteredUsers">
+                                        <table class="members-content">
+                                            <tr>
+                                                <th>
+                                                    <select [ngModel]="getSelectedRoleId(user.id)" (change)="onRoleChanged(user, $event)" [disabled]="user.id == loggedInUserId">
+                                                        <option *ngFor="let role of getRolesForUser(user)" [value]="role.id">{{role.name}}</option>
+                                                    </select>
+                                                </th>
+                                                <th>
+                                                    {{ user.name }} {{ user.lastname }}
+                                                </th>
+                                                <th>
+                                                    <input type="checkbox" [checked]="isSelected(user)" (click)="toggleUserSelection(user)" [disabled]="user.id == loggedInUserId">
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </div>
+        
+                                    <div class="team-option" *ngFor="let team of filteredTeams" (mouseover)="showTeamMembers(team)" (mouseout)="hideTeamMembers($event)">
+                                        <table class="members-content" [ngClass]="{'show': showDropdown, 'upwards': openDropdownUpwards}">
+                                            <tr>
+                                                <th>
+                                                    <div class="team-members" *ngIf="hoveredTeam && hoveredTeam.id === team.id">
+                                                        <div *ngFor="let member of team.members">
+                                                            <table id="teams-content">
+                                                                <tr style="background-color: rgb(184, 244, 252);">
+                                                                    <th>
+                                                                        <select [ngModel]="getSelectedRoleId(member.id)" (change)="onRoleChanged(member, $event)" [disabled]="member.id == loggedInUserId">
+                                                                            <option *ngFor="let role of getRolesForUser(member)" [value]="role.id">{{role.name}}</option>
+                                                                        </select>
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="checkbox" [checked]="isSelected(member)" (change)="toggleUserSelection(member)" [disabled]="member.id == loggedInUserId">
+                                                                        {{ getUserName(member.id) }}
+                                                                    </th>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    {{ team.name }}
+                                                </th>
+                                                <th>
+                                                    <input type="checkbox" [checked]="isSelectedTeam(team.id)" (change)="onTeamSelected(team)">
+                                                </th>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <div class="related">
+                    <div class="link-create-cancel">
+                        <div class="create-cancel">
+                            <button class="close" (click)="closeOverlay()">Close</button>
+                            <button class="create" (click)="createProject()">Create</button>
+                            <button class="cancel" (click)="closeOverlay()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

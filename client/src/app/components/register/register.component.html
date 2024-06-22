@@ -1,0 +1,50 @@
+<div class="register">
+  <h2>Add new member!</h2>
+  <br>
+  <form [formGroup]="registerForm">
+  <div><input formControlName="Name" type="text" name="name" placeholder="Name" required maxlength="31"></div>
+  <small *ngIf="registerForm.hasError('required', 'Name')" style="color:red;">*Name is required </small>
+  <small *ngIf="registerForm.controls['Name'].dirty && registerForm.hasError('pattern', 'Name')" style="color:red;">*Name should only contain letters.</small>
+  <small *ngIf="registerForm.controls['Name'].dirty && registerForm.controls['Name'].value?.length > 30" style="color:red;">*Name cannot be more than 30 characters long.</small>
+  <br>
+  
+  <div><input formControlName="Lastname" type="text" name="lastname" placeholder="Lastname" required maxlength="31"></div>
+  <small *ngIf="registerForm.hasError('required', 'Lastname')" style="color:red;">*Lastname is required </small>
+  <small *ngIf="registerForm.controls['Lastname'].dirty && registerForm.hasError('pattern', 'Lastname')" style="color:red;">*Lastname should only contain letters.</small>
+  <small *ngIf="registerForm.controls['Lastname'].dirty && registerForm.controls['Lastname'].value?.length > 30" style="color:red;">*Last name cannot be more than 30 characters long.</small>
+  <br>
+  
+  <div><input formControlName="Email" type="text" name="email" placeholder="Email" required></div>
+  <small *ngIf="registerForm.hasError('required','Email')" style="color:red;">*Email is required.</small>
+  <small *ngIf="registerForm.controls['Email'].dirty && registerForm.hasError('pattern','Email')" style="color:red;">*Please enter a valid email address.</small><br>
+  <small *ngIf="registerForm.get('Email')?.hasError('emailExists')" style="color:red;">*This email already exists in the database.</small>
+  
+  <div><input formControlName="Username" type="text" name="username" placeholder="Username" required minlength="3" maxlength="31"></div>
+  <small *ngIf="registerForm.hasError('required', 'Username')" style="color:red;">*Username is required. </small>
+  <small *ngIf="registerForm.controls['Username'].errors?.['minlength'] && registerForm.controls['Username'].value?.length < 3 && (registerForm.controls['Username'].dirty || registerForm.controls['Username'].touched)" style="color:red;">*Username must be at least 3 characters long.</small>
+  <small *ngIf="registerForm.controls['Username'].dirty && registerForm.controls['Username'].value?.length > 30" style="color:red;">*Username cannot be more than 30 characters long.</small>
+  <small *ngIf="registerForm.controls['Username'].dirty && registerForm.hasError('pattern', 'Username')" style="color:red;">*Username can only contain letters, numbers, underscores, hyphens, and periods.</small><br>
+  <small *ngIf="registerForm.get('Username')?.hasError('usernameExists')" style="color:red;">*This username already exists in the database.</small>
+
+  <div><input formControlName="Password" type="password"  name="password" placeholder="Password" required></div>
+  <small *ngIf="registerForm.hasError('required','Password')" style="color:red;">*Password is required</small>
+  <small *ngIf="registerForm.controls['Password'].dirty && registerForm.hasError('minlength', 'Password')" style="color:red;">*Password must be at least 8 characters long.</small><br>
+  
+  <div><input formControlName="ConfirmPassword" type="password"  name="confirm-password" placeholder="Confirm password" required></div>
+  <small *ngIf="registerForm.hasError('required','ConfirmPassword')" style="color:red;">*Confirm password is required</small>
+  <small *ngIf="registerForm.hasError('passwordMismatch') && registerForm.controls['ConfirmPassword'].dirty" style="color:red;">*Passwords do not match.</small><br>
+  
+  <div><input formControlName="Department" type="text" name="department" placeholder="Department" maxlength="51"></div><br>
+  <small *ngIf="registerForm.controls['Department'].dirty && registerForm.controls['Department'].value?.length > 50" style="color:red;">*Department cannot be more than 50 characters long.</small>
+
+  <div><input formControlName="Organisation" type="text" name="Organisation" placeholder="Organisation" maxlength="51"></div><br>
+  <small *ngIf="registerForm.controls['Organisation'].dirty && registerForm.controls['Organisation'].value?.length > 50" style="color:red;">*Organisation cannot be more than 50 characters long.</small>
+
+    <select formControlName="Role" type="role"  name="role" [ngClass]="{'custom-select': true}">
+      <option value="0">Select role</option>
+      <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
+    </select>
+    <br><small *ngIf="validRole" style="color:red;">*Role is required</small>
+    <button (click)="onSubmit()" type="submit">Register user</button><br>
+  </form>
+</div>

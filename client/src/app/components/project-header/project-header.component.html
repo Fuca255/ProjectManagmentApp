@@ -1,0 +1,23 @@
+<div class="project-header">
+    <div class="search">
+        <input id="search-field" type="text" [(ngModel)]="searchText" (keyup)="getText()" placeholder="Search for task...">
+    </div>
+    <div id="list">
+        <button id="list-button" (click)="changeView('list')" [style.background]="currentView === 'list' ? '#36454F' : 'white'" [style.color]="currentView === 'list' ? 'white' : 'black'">
+            <img id="list-img" [src]="currentView === 'list' ? '../../../assets/project-task-header/list-active.svg' : '../../../assets/project-task-header/list.svg'">
+            <span style="font-family: 'Poppins', sans-serif; font-size: 16px;">List</span>
+        </button>
+    </div>
+    <div id="kanban">
+        <button id="kanban-button" (click)="changeView('kanban')" [style.background]="currentView === 'kanban' ? '#36454F' : 'white'" [style.color]="currentView === 'kanban' ? 'white' : 'black'">
+            <img id="kanban-img" [src]="currentView === 'kanban' ? '../../../assets/project-task-header/kanban-active.svg' : '../../../assets/project-task-header/kanban.svg'">
+            <span style="font-family: 'Poppins', sans-serif; font-size: 16px;">Kanban</span>
+        </button>
+    </div>
+    <div id="gantt">
+        <button id="gantt-button" (click)="changeView('gantt')" [style.background]="currentView === 'gantt' ? '#36454F' : 'white'" [style.color]="currentView === 'gantt' ? 'white' : 'black'">
+            <img id="gantt-img" [src]="currentView === 'gantt' ? '../../../assets/project-task-header/gant-active.svg' : '../../../assets/project-task-header/gant.svg'">
+            <span style="font-family: 'Poppins', sans-serif; font-size: 16px;">Gantogram</span>
+        </button>
+    </div>
+</div>

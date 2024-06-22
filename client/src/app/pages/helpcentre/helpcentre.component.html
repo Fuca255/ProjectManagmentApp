@@ -1,0 +1,17 @@
+<div id="help" *ngIf="role">
+    <h1 *ngIf="role === 'Guest'" id="title">{{role}} help guide</h1>
+    <h1 *ngIf="role === 'Member'" id="title">{{role}} help guide</h1>
+    <h1 *ngIf="role === 'Project Manager'" id="title">{{role2}} help guide</h1>
+    <h1 *ngIf="role === 'Project Worker'" id="title">{{role}} help guide</h1>
+    <h1 *ngIf="role === 'Admin'" id="title">{{role}} help guide</h1>
+  
+    <br>
+
+    <div *ngIf="role === 'Guest'"><iframe *ngIf="role" [src]="getPdfUrl(role)" width="1500px" height="750px"></iframe></div>
+    <div *ngIf="role === 'Project Worker'"><iframe *ngIf="role" [src]="getPdfUrl(role2)" width="1500px" height="750px"></iframe></div>
+    <div *ngIf="role === 'Project Manager'"><iframe *ngIf="role" [src]="getPdfUrl(role2)" width="1500px" height="750px"></iframe></div>
+    <div *ngIf="role === 'Admin'"><iframe *ngIf="role" [src]="getPdfUrl(role)" width="1500px" height="750px"></iframe></div>
+    <div *ngIf="role === 'Member'"><iframe *ngIf="role" [src]="getPdfUrl(role2)" width="1500px" height="750px"></iframe></div>
+
+    <div *ngIf="!role">You are not currently logged in or your role cannot be determined.</div>
+</div>

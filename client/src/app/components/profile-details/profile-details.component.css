@@ -1,0 +1,199 @@
+.overlay-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25%;
+    height: auto;
+    background-color: white;
+    z-index: 9999;
+    box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: context-menu;
+    user-select: none;
+}
+
+.centered-content {
+    width: 100%;
+}
+
+.profile-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#description {
+    margin-left: 10px;
+}
+
+#description span {
+    cursor: context-menu;
+    user-select: none;
+}
+
+span{
+    margin-top: 10px;
+    padding: 5px;
+}
+
+table {
+    font-family: 'Poppins', sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+  }
+  
+  td{
+    border: 0.1px solid #ffffff;
+    text-align: left;
+    padding: 8px;
+  }
+ 
+.title {
+    font-weight: bold;
+    font-size: large;
+}
+
+#pfp {
+    width: 90px;
+    height: 90px;
+    border: 1px solid black;
+    background-color: #001B47;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+.form-control{
+    margin-top: 10px;
+    width: 100%;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    border: 0px;
+}
+
+.editdetails {
+    margin: 10px 10px 0px 10px;
+    align-self: flex-end;
+    position: relative;
+}
+
+#editprofile {
+    border-radius: 5px;
+    width: 25px;
+    height: 27px;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.editdetails:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+#save, #cancel {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#save {
+    background-color: #C41E3A;
+    color: white;
+}
+
+#cancel {
+    background-color: #EEF4FB;
+    color: #C41E3A;
+}
+
+.save-cancel {
+    justify-content: center;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.contact-info{
+    width: 80%;
+}
+
+.input-field{
+    width: 70%;
+    height: 40px;
+    background: #FFFFFF;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    border: 0px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+#description p {
+    margin: 0px;
+    font-size: x-small;
+    width: 70%;
+}
+
+.input-field[disabled] {
+    background-color: #f2f2f2;
+    border: 1px solid #d3d3d3;
+    cursor: not-allowed;
+    color: #888888; 
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #00bfff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.input-field, #nametitle, #emailtitle, #organisationtitle, #departmenttitle{
+    width: 100%;
+    margin-top: 10px;
+}

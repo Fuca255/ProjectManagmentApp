@@ -1,0 +1,102 @@
+#task-content{
+    cursor: pointer;
+    background-color: white;
+    height: 80px;
+    width: 100%;
+    /* width: calc(100% - 150px); */
+    margin: 10px 0px;
+    padding: 5px 5px;
+    border-radius: .5rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+table {
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: lighter;
+  font-size: 14px;
+  border-collapse: collapse;
+  width: 100%;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+td, th {
+  width: 16.6%;
+  text-align: left;
+  padding-left: 6px;
+}
+
+th{
+  margin-left: 10px;
+}
+
+.at-risk, .high-priority, .medium-priority, .low-priority{
+  width: 80%;
+  padding: 5px 20px;
+  margin-left: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: .5rem;
+  color: white;
+  text-align: center;
+}
+
+.at-risk{
+  background-color: #ef476f;
+}
+
+.high-priority{
+  background-color: #ffd166;
+}
+.medium-priority{
+  background-color: #118ab2;
+}
+.low-priority{
+  background-color: #06d6a0;
+}
+
+
+.ready, .in-progress, .done, .blocked, .cancelled, .not-started {
+  width: 80%;
+  margin-left: 10px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: .5rem;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.not-started {
+  background-color: #fd0363;
+}
+
+.ready{
+  background-color: #cc095d;
+}
+
+.in-progress {
+  background-color: #9c1057;
+}
+
+.done {
+  background-color: #6b1650;
+}
+.blocked {
+  background-color: #3b1d4a;
+}
+
+.cancelled {
+  background-color: #0a2344;
+}
+
+
+.name{
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+}

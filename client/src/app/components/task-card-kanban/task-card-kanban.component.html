@@ -1,0 +1,27 @@
+<div class="frame-4" [ngClass]="'kanban_bar_' + task.state.id">
+    <div class="title">
+      <h2 [title]="task.title">{{task.dummyTitle}}</h2>
+    </div>
+
+    <div class ="time">
+      <div class = "start">
+        <h2>Start date</h2>
+        <p>{{task.start.toDateString()}}</p>
+      </div>
+      <div class = "end">
+        <h2>End date</h2>
+        <p>{{task.end.toDateString()}}</p>
+      </div>
+    </div>
+    <div class="progress-bar">
+      <h2><strong>Progress</strong></h2>
+      <!-- <input class = "percentage-bar" type="range" min="0" max="100" [value]="task.percentage"><span>{{task.percentage}}%</span> -->
+      <ngb-progressbar class="mb-3" type="info" [value]="task.percentage" [striped]="true" [animated]="true" height="20px"><i>{{task.percentage}}%</i></ngb-progressbar>
+    </div>
+    <div class="task-details">
+      <p (click)="openShowTaskOverlay()">Details...</p>
+      <div class = "priority">
+        <span [ngClass]="getPriorityClass()">{{task.priority.description}}</span>
+      </div>
+    </div>
+  </div>

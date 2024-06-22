@@ -1,0 +1,12 @@
+﻿Id,UserProjectPermissionId,description,name
+1,,Allows users to view project details,View Project Details
+2,,Allows users to edit project details,Edit Project Details
+3,,Allows users to add tasks to the project,Add Task
+4,,Allows users to delete tasks from the project,Delete Task
+5,,Allows users to edit tasks in the project,Edit Task
+6,,Allows users to assign tasks to team members,Assign Task
+7,,Allows users to add comments to tasks,Add Comment
+8,,Allows users to delete their comments from tasks,Delete Comment
+9,,Allows users to view members of the project team,View Team Members
+10,,Allows users to edit members of the project team,Edit Team Members
+11,,Allows users to change the state of the project,Change Project State

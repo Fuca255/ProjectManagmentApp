@@ -1,0 +1,8 @@
+<div class="overlay">
+    <div class="editTeam">
+        <h2>New Team</h2>
+        <input type="text" class="teamName" placeholder="Team name" [(ngModel)]="updateTeamObj.name">
+        <p-multiSelect [options]="users" placeholder="Select Members" optionLabel="fulname" [(ngModel)]="selectedUsers"/>
+        <button (click)="updateTeamRequest()">Edit</button>
+    </div>
+</div>

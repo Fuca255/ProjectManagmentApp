@@ -1,0 +1,79 @@
+.task-list{
+    width: calc(100vw - 100px);
+    margin-left: 20px;
+    max-width: 100%;
+    padding-right: 100px;
+    padding-top: 140px;
+}
+
+.list{
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.content{
+    width: 80%;
+}
+
+.task{
+    color: black;
+}
+.content mat-tree{
+    overflow-y: scroll;
+    background-color: white;
+    width: 100%;
+    height: calc(100vh - 200px);
+    float: left;
+    border-radius: .5rem;
+    box-shadow: rgb(36, 36, 36) 0px 13px 27px -5px, rgb(36, 36, 36) 0px 8px 16px -8px;
+}
+.filter{
+    flex: 1;
+    max-width: 20%; 
+    display: flex;
+    padding: 0.5%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.create-buttons{
+    /* padding-left: 250px; */
+    margin-left: auto;
+}
+.create-buttons button{
+    padding: 5px 20px;
+    background-color:   white;
+    color: darkgray;
+    border: 1px solid darkgray;
+    border-radius: 25px;
+    margin-left: 10px;
+}
+.create-buttons button:hover{
+    background-color:   white;
+    color: darkgray;
+}
+.tgb{
+    margin:0px 20px;
+}
+
+.expand-field{
+    color: black;
+    font-size: 26px;
+    font-family: 'Poppins',sans-serif;
+}
+
+mat-tree::-webkit-scrollbar {
+    width: 10px;               /* width of the entire scrollbar */
+  }
+  
+  mat-tree::-webkit-scrollbar-track {
+    background: none;  
+  }
+  
+  mat-tree::-webkit-scrollbar-thumb {
+    background-color: #e9e9e9;    
+    border-radius: 20px;       
+    border: 3px solid darkgray; 
+  }

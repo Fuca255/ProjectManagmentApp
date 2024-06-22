@@ -1,0 +1,6 @@
+<div class="overlay">
+    <h2>Enter name of the Task Group</h2>
+    <input type="text" [(ngModel)]="title" placeholder="Name of TaskGroup"> 
+    <button *ngIf="!IsEdit" (click)="createGroup()">Create</button>
+    <button *ngIf="IsEdit" (click)="editGroup()">Edit</button>
+</div>

@@ -1,0 +1,220 @@
+<div class = "overlay-container"  #overlayContainer>
+    <div class="header">
+        <h1 *ngIf="!showUpdate || !isManager">{{assignment.title}}</h1>
+        <input type="text" class="task-title" *ngIf="showUpdate && isManager" [(ngModel)]="updateObj.title">
+        <button class="update" (click)="updateTask()" *ngIf="!showUpdate && (isManager || (isWorker && hasCompletedDependentTasks)) && !assignment.isClosed">Update</button>
+        <button *ngIf="!assignment.isClosed && assignment.percentage===100 && isManager" class="closed" (click)="sendCloseRequest(true)">Close Task</button>
+        <button *ngIf="assignment.isClosed && isManager" class="closed" (click)="sendCloseRequest(false)">Reopen Task</button>
+        <div class="right-buttons">
+            <button class="expand" (click)="toggleOverlay()"><i [ngClass]="expanded ? 'fa fa-compress' : 'fa fa-expand'"></i></button>
+            <button class="btn-close" (click)="closeOverlay()" aria-label="Close"></button>
+        </div>
+        <br>
+    </div>
+
+    <div class="tabela">
+        <table>
+            <tr>
+                <th>Priority</th>
+                <th>
+                    <span *ngIf="!showUpdate || !isManager">{{ assignment.priority.description }}</span>
+                    <span *ngIf="showUpdate && isManager">
+                        <p-dropdown [options]="priorities" [(ngModel)]="selectedPriority" optionLabel="description" placeholder="Choose priority"></p-dropdown>
+                    </span>
+                </th>
+                
+            <tr>
+                <th>Status</th>
+                <th>
+                    <span *ngIf="(!showUpdate || !isManager)">{{ assignment.state.name }}</span>
+                    <span *ngIf="showUpdate && isManager">
+                        <p-dropdown [options]="states" [(ngModel)]="selectedState" optionLabel="name" placeholder="Choose state"></p-dropdown>
+                    </span>
+                </th>
+                
+            </tr>
+            <tr>
+                <th>Owner</th>
+                <th><span>{{assignment.owner.name + " "+ assignment.owner.lastname}}</span></th>
+            </tr>
+            <tr>
+                <th>Assignees</th>
+                <th>
+                    <span *ngIf="!showUpdate || !isManager" style = "padding: 0 20px; width: 100%;">                
+                        <div *ngFor="let u of assignment.assignees">
+                            {{u.name + " "+u.lastname}}
+                        </div>
+                    </span>
+                    <span *ngIf="showUpdate && isManager" class = "chooseAssignees">
+                        <div class="custom-dropdown">
+                            <span class="selected-option" (click)="toggleDropdown()">Select Assignees</span>
+                            <div class="options" *ngIf="showDropdown">
+                                <div class="member-option" *ngFor="let user of projectUsers" (click)="toggleUserSelection(user.id, $event)">
+                                    <input type="checkbox" style="margin-left: 10px;" [checked]="isSelected(user.id)" (click)="toggleUserSelection(user.id, $event)">
+                                    {{ user.name }} {{ user.lastname }}
+                                </div>
+                            </div>
+        
+                        </div>
+                    </span>
+                </th>
+            </tr>
+            <tr>
+                <th>Start Date</th>
+                <th>
+                    <span *ngIf="!showUpdate || !isManager">{{assignment.start.toDateString()}}</span>
+                    <span *ngIf="showUpdate && isManager"><p-calendar [(ngModel)] = "updateObj.start" placeholder="Start date"></p-calendar>
+                    </span>
+                </th>
+            </tr>
+            <tr>
+                <th>End Date</th>
+                <th>
+                    <span *ngIf="!showUpdate || !isManager">{{assignment.end.toDateString()}}</span>
+                    <span *ngIf="showUpdate && isManager">
+                        <p-calendar [(ngModel)] = "updateObj.end" placeholder="End date"></p-calendar>
+                    </span></th>
+            </tr>
+            <tr>
+                <th>Progress</th>
+                <th>
+                    <span *ngIf="!showUpdate"><ngb-progressbar class="mb-3" type="info" [value]="assignment.percentage" [striped]="true" [animated]="true" height="20px"><i>{{assignment.percentage}}%</i></ngb-progressbar></span>
+                    <span *ngIf="showUpdate && !isUser">
+                        <div class="slidecontainer">
+                            <p-slider [(ngModel)]="updateObj.percentage" [min]="0" [step]="5" [max]="100"></p-slider>
+                            {{ updateObj.percentage }}%
+                        </div>
+                    </span>
+                </th>
+            </tr>
+        </table>
+    </div>
+
+    <hr style="border: 3px;">
+
+    <table>
+        <tr>
+            <th>Tasks that depend on this task</th>
+            <th><p *ngIf="hasDependent && (!showUpdate || !isManager)">There are no dependecies from this task !</p>
+                <div *ngIf="!hasDependent && (!showUpdate || !isManager)">
+                    <div class = "dependecy" *ngFor="let dependent of dependentTasks">
+                        {{dependent.title}}
+                    </div>
+                </div>
+                <div *ngIf="showUpdate && isManager" class="custom-dropdown">
+                    <span class="selected-option" (click)="toggleDropdownTask()">Select DependentTasks</span>
+                    <div class="options" *ngIf="showDropdownTask">
+                        <div class="member-option" *ngFor="let asign of projectAssignments" (click)="toggleTaskSelection(asign.id, $event)">
+                            <input type="checkbox" [checked]="isSelectedTask(asign.id)" (click)="toggleTaskSelection(asign.id, $event)">
+                            {{ asign.title }}
+                        </div>
+                    </div>
+                </div>
+                </th>
+          </tr>
+    </table>
+    
+    <hr style="border: 3px;">
+
+    <table>
+        <tr>
+            <th>Description</th>
+            <th><div *ngIf="!showUpdate || !isManager" class = "description">
+                    {{assignment.description}}
+                </div>
+                <div *ngIf="showUpdate && isManager" class = "description">
+                    <textarea cols="30" rows="10" class="description-content" [(ngModel)]="updateObj.description">
+            
+                    </textarea>
+                </div>
+            </th>
+          </tr>
+    </table>
+
+    <br><br>
+    <button *ngIf="showUpdate && !isUser" (click)="createUpdateRequest()">Update</button>
+    <button *ngIf="showUpdate && !isUser" (click)="cancelUpdateRequest()" style="background-color: crimson; margin-left: 15px;">Cancel</button>
+
+    <hr style="border: 3px;">
+    <div class="comment" id="add-comment">
+        <div *ngIf="isManager || isUser || isWorker">
+            <ng-container *ngIf="!pictureLoading">
+                <img id="pfp" *ngIf="picture" [src]="picture" alt="Profile Picture"> Leave your comment
+            </ng-container>
+            <div class = 'comment-box'>
+                <!-- <textarea class="textarea" cols="30" rows="10" placeholder="Write a comment..." [(ngModel)] = "commentText" (keydown.enter)="onEnter($event)">
+                </textarea><br> -->
+                <quill-editor [(ngModel)]="commentText" [modules]="moduls" placeholder="Write a comment" style="width:70%;"></quill-editor><br>
+                <button id = 'comment-button' (click)="createComment()">Comment</button>
+            </div>
+        </div>
+        <br>
+    <div id="comments">
+        
+            <div class="comment" *ngFor="let comment of comments">
+                <div class = 'comment-box'>
+                    <!-- <div *ngIf="!comment.editOpened"> -->
+
+                        <p style="color: gray;"> <img id="pfp" [src]="comment.user.profilePicturePath" alt="slika_korinsika"> {{comment.user.name}} {{comment.user.lastname}} &commat;{{comment.user.username}}</p>
+                        <!-- <p style="width: 100%; border: 1px solid; padding: 10px; color: black;" [innerHTML]="replaceNewlines(comment.content)">{{comment.content}}</p> -->
+                        
+                        <quill-editor *ngIf="!comment.editOpened" [(ngModel)]="comment.content"  [readOnly]="true" [modules]="{toolbar:false}" placeholder="Write a comment" style="width:100%;"></quill-editor>
+                        <quill-editor *ngIf="comment.editOpened" [(ngModel)]="comment.content"  [readOnly]="false" [modules]="moduls" placeholder="Write a comment" style="width:70%;"></quill-editor>
+                        <button *ngIf="comment.user.id==userId && !comment.editOpened" class="edit" (click)="deleteComment(comment)">Delete</button>
+                        <button *ngIf="comment.user.id==userId && !comment.editOpened" class="edit" (click)="showEditBox(comment)">Edit</button>
+                        <p style="color: gray;">{{ comment.editedTime.toLocaleString().split(',')[0] }}     {{ comment.editedTime.toLocaleString().split(',')[1] }}
+                            <button class="show-hide" *ngIf="!comment.editOpened &&(isUser || isManager || isWorker)" (click)="showBox(comment)">
+                                <span *ngIf="!comment.replyOpened">Show Reply box</span>
+                                <span *ngIf="comment.replyOpened">Hide Reply box</span>
+                            </button>
+                            <button *ngIf="comment.editOpened" id = 'comment-button' (click)="updateComment(comment)">Edit</button><button *ngIf="comment.editOpened" class="cancel" (click)="showEditBox(comment)">Cancle</button>
+                        </p>
+                        
+                    
+                    <br>
+                    <div *ngIf="comment.replyOpened" class="answer">
+                        <div class="comment" id="add-comment">
+                            <ng-container *ngIf="!pictureLoading">
+                                <img id="pfp" *ngIf="picture" [src]="picture" alt="Profile Picture"> Leave your Reply
+                            </ng-container>
+                            <div *ngIf="isManager || isUser || isWorker" class = 'comment-box'>
+                                <!-- <textarea class="textarea" cols="30" rows="10" placeholder="Write a reply..." [(ngModel)] = "comment.answerContent" (keydown)="onEnter($event)">
+                                </textarea><br> -->
+                                <quill-editor [(ngModel)]="comment.answerContent"  [readOnly]="false" [modules]="moduls" placeholder="Write a reply" style="width:70%;"></quill-editor>
+                                <br><button id = 'comment-button' (click)="createAnswer(comment)">Finish Reply</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answers">
+                        <div class="answer" *ngFor="let answer of comment.answers">
+                            <!-- <div *ngIf="!answer.editOpened"> -->
+                                <p style="color: gray; width: 90%;"> <img id="pfp" [src]="answer.user.profilePicturePath" alt="slika_korinsika"> {{answer.user.name}} {{answer.user.lastname}} &commat;{{answer.user.username}}</p>
+                                <!-- <p style="width: 90%; border: 1px solid; padding: 10px; color: black;" [innerHTML]="replaceNewlines(answer.content)">{{answer.content}}</p> -->
+                                
+                                <quill-editor *ngIf="!answer.editOpened" [(ngModel)]="answer.content"  [readOnly]="true" [modules]="{toolbar:false}" placeholder="Write a reply" style="width:100%;"></quill-editor>
+                                <quill-editor *ngIf="answer.editOpened" [(ngModel)]="answer.content"  [readOnly]="false" [modules]="moduls" placeholder="Write a reply" style="width:70%;"></quill-editor>
+                                
+                                <button *ngIf="!answer.editOpened && answer.user.id==userId" (click)="deleteAnswer(answer,comment)" class="edit">Delete</button>
+                                <button *ngIf="!answer.editOpened && answer.user.id==userId" (click)="showEditBox(answer)" class="edit">Edit</button>
+                                <p style="color: gray; width: 90%;">{{ answer.editedTime.toLocaleString().split(',')[0] }}     {{ answer.editedTime.toLocaleString().split(',')[1] }}</p>
+                                <button *ngIf="answer.editOpened" id = 'comment-button' (click)="updateAnswer(answer)">Edit</button><button *ngIf="answer.editOpened" class="cancel" (click)="showEditBox(answer)">Cancle</button>
+                            <!-- </div> -->
+                            
+                            <!-- <div *ngIf="answer.editOpened" class="answer">
+                                <div class="comment" id="add-comment">
+                                    <ng-container *ngIf="!pictureLoading">
+                                        <img id="pfp" *ngIf="picture" [src]="picture" alt="Profile Picture"> Leave your comment
+                                    </ng-container>
+                                    <div *ngIf="isManager || isUser || isWorker" class = 'comment-box'>
+                                        <textarea class="textarea" id="commentTextarea" cols="30" rows="10" placeholder="Write a comment..."  [(ngModel)] = "answer.content" (keydown)="onEnter($event)">
+                                        </textarea><br>
+                                        
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</div>

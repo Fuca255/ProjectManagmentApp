@@ -1,0 +1,39 @@
+<div class="root">
+  <div class ="board" *ngIf="showProjectDetails">
+    <div class="board-wrapper" #boardWrapper>
+      <div class="board-columns">
+        <div cdkDropList 
+            cdkDropListOrientation="horizontal" class="board-columns"
+            (cdkDropListDropped)="dropGrid($event)">
+        <div 
+           cdkDragLockAxis="x" class="board-column" 
+           *ngFor="let column of board.columns" [ngClass]="'kanban_bar_' + column.id" >
+          <div class="column-title" cdkDragHandle>
+            {{ column.name }}
+          </div>
+          <!-- Dodajemo dugme na početak kolone -->
+          <div class="create" *ngIf="showCreateButton && isManager"><button class="task-button" (click)="openCreateOverlay(column.id)">New task</button></div>
+          <!-- ovde treba da se omoguci da kada se klikne na task da se otvori task details -->
+          <div *ngIf="isManager" class="tasks-container"
+              id="{{column.id}}"
+              [cdkDropListConnectedTo]="column.columnIds"
+              cdkDropList
+              [cdkDropListData]="column.tasks"
+              (cdkDropListDropped)="drop($event)">
+          <app-task-card-kanban (newItemEvent)="changeState($event)" class="task" *ngFor="let item of column.tasks"  [userProjectRole]="userProjectRole" [task]="item"  cdkDrag [cdkDragData]="item" (cdkDragMoved)="onDragMoved($event)"/>
+          </div>
+          <div *ngIf="!isManager" class="tasks-container"
+              id="{{column.id}}"
+              [cdkDropListConnectedTo]="column.columnIds"
+              cdkDropList
+              [cdkDropListData]="column.tasks"
+              (cdkDropListDropped)="drop($event)">
+          <app-task-card-kanban (newItemEvent)="changeState($event)"  class="task " *ngFor="let item of column.tasks" [userProjectRole]="userProjectRole"  [task]="item"/>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

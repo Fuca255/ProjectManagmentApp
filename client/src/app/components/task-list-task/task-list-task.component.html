@@ -1,0 +1,25 @@
+<div class="taskContent" (mousedown)="check($event)" (click)="openShowTaskOverlay($event)">
+    <div class="task_start">
+        <div class="title">
+            <p>{{task.dummyTitle}}</p>
+        </div>
+        <div class="progress">
+            <ngb-progressbar class="mb-3" type="info" [value]="task.percentage" [striped]="true" [animated]="true" height="20px"><i>{{task.percentage}}%</i></ngb-progressbar>
+        </div>
+    </div>
+
+    <div class="data">
+        <table>
+            <tr>
+                <th>Start: {{task.start.toDateString()}}</th>
+                <th>Priority: <span [ngClass]="getPriorityClass()">{{task.priority.description}}</span></th>
+                <th>Assignees: </th>
+            </tr>
+            <tr>
+                <th>End: {{task.end.toDateString()}}</th>
+                <th>State: <span class="state_content">{{task.state.name}}</span></th>
+                <th><span [title]="realAssignessStr">{{asigneesString}}</span></th>
+            </tr>
+        </table>
+    </div>
+</div>

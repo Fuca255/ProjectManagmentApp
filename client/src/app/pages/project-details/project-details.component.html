@@ -1,0 +1,11 @@
+<div id="page" [class.scrolled-down]="scrolledDown">
+    <div id="project-header">
+        <h1 id="title">Projects/{{ projectName.length > 23 ? (projectName.substring(0, 23) + '...') : projectName }}</h1>
+        <app-project-header (viewChange)="changeView($event)" (getSearchText)="getSearchText($event)"></app-project-header>
+    </div>
+    <div class="product" [ngSwitch]="currentView">
+        <app-kanban [searchText]="searchText" *ngSwitchCase="'kanban'" ></app-kanban>
+        <app-gantogram [searchText]="searchText" *ngSwitchCase="'gantt'"></app-gantogram>
+        <app-task-list [searchFilter]="searchText" *ngSwitchCase="'list'"/>
+    </div>
+</div>

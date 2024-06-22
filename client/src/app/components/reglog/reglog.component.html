@@ -1,0 +1,8 @@
+<button (click)="onKey('login')">Login</button>
+<button (click)="onKey('register')">Registration</button>
+
+<ng-container [ngSwitch]="componentName">
+  <app-login *ngSwitchCase="'login'"></app-login>
+  <app-register *ngSwitchCase="'register'"></app-register>
+</ng-container>
+

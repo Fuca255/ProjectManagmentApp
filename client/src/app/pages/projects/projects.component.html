@@ -1,0 +1,8 @@
+<div class="projectlist" >
+    <h1 class="title">{{projectText}}</h1>
+    <div class="search">
+        <input id="search-field" type="text" placeholder="Search for project..." (keyup)="onSearch($event)" #Search>
+    </div>
+    <button class="create" *ngIf="showCreateButton && isManager" (click)="openCreateOverlay()">Create project</button>
+</div>
+

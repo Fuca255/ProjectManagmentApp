@@ -1,0 +1,52 @@
+@import 'material-icons/iconfont/material-icons.css';
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import 'quill/dist/quill.snow.css';
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+/* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+app-projects {
+    width: 100%;
+    padding-left: 35px;
+}
+
+app-project-preview {
+    overflow-x: hidden;
+}
+
+app-task-header, app-project-header {
+    width: 100%;
+}
+
+app-member {
+    width: 60%;
+    height: 37vw;
+    overflow-y: scroll;
+    padding-left: 10vw;
+}
+app-tasks, app-admin, app-resetpassword {
+    width: 100vw;
+    height: 100%;
+}
+
+app-dashboard {
+    height: 43vw;
+    width: 100vw;
+}
+
+body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; height: 100%; overflow-y: hidden;}
+
+
+@media screen and (max-height: 710px) {
+    body {
+        height: 100vh;
+        overflow-y: auto;
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

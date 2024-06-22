@@ -1,0 +1,49 @@
+@import url(../../../assets/icons/css/font-awesome.min.css); 
+
+.wrapper{
+    height: calc(100vh - 100px);
+    padding-top: 140px;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: calc(100vw - 180px);
+    z-index: 1000;
+}
+.gantt-bar-content span {
+    position: relative;
+    z-index: 1;
+}
+
+:host ::ng-deep .gantt-bar-content span {
+    position: relative;
+    z-index: 1;
+}
+
+
+.ng-star-inserted{
+    color: black !important;
+    font-weight: 500;
+}
+
+#download_id{
+    background-color: rgb(255, 215, 0);
+    
+}
+#download_id span {
+    color: black !important;
+    font-weight: 400 !important;
+   
+}
+
+
+#scrollToToday_btn, #refresh_btn{
+   background-color: rgb(46, 139, 87);
+   ;
+ 
+}
+
+.podgrupa, .podgrupa i{
+    font-weight: 600 !important;
+    color: #c2185b !important;
+}
+
+

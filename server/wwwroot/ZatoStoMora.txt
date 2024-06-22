@@ -1,0 +1,1 @@
+Ubaceno da mi mogao da posotji wwwroot folder jer zbog nekog razloga ne znam sto kad ga obrisem nece da builduje aplikaciju.

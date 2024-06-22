@@ -1,0 +1,48 @@
+<div class = 'project-filter'>
+    <div class="header-filter">
+        <h2>Filters</h2>
+        
+    </div>
+    <div class = 'priority'>
+        <h4>Priorities</h4>
+        <p-multiSelect  [options]="priorities" placeholder="Select Priorities" optionLabel="description" [(ngModel)]="selectedPrios">
+        </p-multiSelect>
+    </div>
+    <div class ='state'>
+        <h4>States</h4>
+        <p-multiSelect  [options]="states" placeholder="Select states" optionLabel="name" [(ngModel)]="selectedStates"></p-multiSelect>
+    </div>
+    <div class="startDate">
+        <h4>Start Date</h4>
+        <p-calendar [showButtonBar]="true"  [selectionMode]="'range'" placeholder=" Choose Range" [(ngModel)]="StartRange" ></p-calendar>
+    </div>
+    <div class="endDate">
+        <h4>End Date</h4>
+        <p-calendar [showButtonBar]="true"  [selectionMode]="'range'" placeholder=" Choose Range" [(ngModel)]="EndRange" ></p-calendar>
+    </div>
+    <div class="budget">
+        <h4>Budget({{budgetValues[0]}} - {{budgetValues[1]}})</h4>
+        <p-slider [step]="100" [min]="limit.budgetMin" [max]="limit.budgetMax" [(ngModel)]="budgetValues" [range]="true"></p-slider>
+    </div>
+    <!-- <div class="spent">
+        <h4>Spent({{spentValues[0]}} - {{spentValues[1]}})</h4>
+        <p-slider [step]="100" [min] = "limit.spentMin" [max]="limit.spentMax" [(ngModel)]="spentValues" [range]="true"></p-slider>
+    </div> -->
+    <div class = 'percentage'>
+        <h4>Percentage({{percentageValues[0]}}% - {{percentageValues[1]}}%)</h4>
+        <p-slider [(ngModel)]="percentageValues" [step]="5" [range]="true"></p-slider>
+    </div>
+    <div class="sort">
+        <h4>Sorted By</h4>
+        <p-dropdown
+        [options]="sortList"
+        [(ngModel)]="filter.propertyName"
+        (ngModelChange)="sendFilter()"
+        />
+        <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle name="sort-mode" [value]="1" (click)="sendSortFilter(1)">Ascending</mat-button-toggle>
+            <mat-button-toggle name="sort-mode" [value]="-1" cl (click)="sendSortFilter(-1)" checked>Descending</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <button class="filter-button" (click)="sendFilter()" >Apply</button>
+</div>

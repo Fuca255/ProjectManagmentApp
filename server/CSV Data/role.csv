@@ -1,0 +1,6 @@
+﻿id,name,Authority
+1,Project Manager,2
+2,Project Worker,3
+3,Member,4
+4,Guest,5
+5,Admin,1

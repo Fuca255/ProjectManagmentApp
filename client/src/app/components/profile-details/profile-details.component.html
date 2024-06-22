@@ -1,0 +1,107 @@
+<div class="overlay-container" *ngIf="!editMode">
+    <div class="overlay-content">
+        <div class="editdetails">
+            <button id="editprofile" (click)="toggleEditMode()"><img src="../../../assets/profile-settings/editprofile.svg"><span class="tooltip">Edit Profile</span></button>
+        </div>
+        <div class="centered-content">
+            <table>
+                <td>
+                    
+                    <img id="pfp" [src]="picture">
+                </td>
+                <td>
+                    <div>
+                        <div id="description">
+                            <span id="nametitle" class="title">Name (username)</span><br>
+                            <span id="fullname">{{user.name}} {{user.lastname}}</span><br> 
+                            <span id="username">({{user.username}})</span><hr>
+                            <span id="roletitle" class="title">Role Name</span><br>
+                            <span id="rolename">{{loggedUser.role.name}}</span><br>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <span id="emailtitle" class="title"><img src="../../../assets/profile-settings/email.svg"> Email</span><br>
+                        <span id="email">{{user.email}}</span><hr>
+                        <span id="organisationtitle" class="title"><img src="../../../assets/profile-settings/organisation.svg"> Organisation</span><br>
+                        <span id="organisation">{{user.organisation}}</span><hr>
+                        <span id="departmenttitle" class="title"><img src="../../../assets/profile-settings/department.svg"> Department</span><br>
+                        <span id="department">{{user.department}}</span><hr>
+                    </div>
+                </td>
+            </table>
+            
+        </div>
+    </div>
+</div>
+
+<div class="overlay-container" *ngIf="editMode">
+    <div class="overlay-content">
+        <div class="editdetails">
+        </div>
+        <div class="centered-content">
+            <div class="profile-info">
+                <img *ngIf="!uploadingPicture" id="pfp" [src]="picture">
+                <img *ngIf="uploadingPicture" class="spinner">
+            </div>
+        </div>
+        <div class="contact-info">
+            <form #editForm="ngForm">
+                <div id="description">
+                    <!-- <label for="UploadimgControlInput" class="form-label">Upload File/Image</label> -->
+                    <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*">
+                    <br>
+                        
+                    <span id="nametitle" class="title">First Name</span><br>
+                    <input class="input-field" type="text" placeholder="Please enter your first name" [(ngModel)]="user.name" name="firstName" required maxlength="31" pattern="[a-zA-Z ]*" #firstName="ngModel">
+                    <p *ngIf="firstName.errors?.['required'] && (firstName.dirty || firstName.touched)" class="error-message" style="color:red;">*First name is required.</p>
+                    <p *ngIf="!firstName.errors?.['required'] && firstName.errors?.['pattern'] && (firstName.dirty || firstName.touched)" class="error-message" style="color:red;">*First name must contain only letters.</p>
+                    <p *ngIf="!firstName.errors?.['required'] && firstName.value?.length > 30 && (firstName.dirty || firstName.touched)" class="error-message" style="color:red;">*First name cannot be more than 30 characters long.</p>
+                    <br>
+
+                    <span id="nametitle" class="title">Last Name</span><br>
+                    <input class="input-field" type="text" placeholder="Please enter your last name" [(ngModel)]="user.lastname" name="lastName" required maxlength="31" pattern="[a-zA-Z ]*" #lastName="ngModel">
+                    <p *ngIf="lastName.errors?.['required'] && (lastName.dirty || lastName.touched)" class="error-message" style="color:red;">*Last name is required.</p>
+                    <p *ngIf="!lastName.errors?.['required'] && lastName.errors?.['pattern'] && (lastName.dirty || lastName.touched)" class="error-message" style="color:red;">*Last name must contain only letters.</p>
+                    <p *ngIf="!lastName.errors?.['required'] && lastName.value?.length > 30 && (lastName.dirty || lastName.touched)" class="error-message" style="color:red;">*Last name cannot be more than 30 characters long.</p>
+                    <br>
+
+                    <span id="nametitle" class="title">Username</span><br>
+                    <input class="input-field" type="text" placeholder="Please enter your username" [(ngModel)]="user.username" name="username" required minlength="3" maxlength="31" pattern="[a-zA-Z0-9_\-\.]*" #username="ngModel">
+                    <p *ngIf="username.errors?.['required'] && (username.dirty || username.touched)" class="error-message" style="color:red;">*Username is required.</p>
+                    <p *ngIf="!username.errors?.['required'] && username.errors?.['minlength'] && (username.dirty || username.touched)" class="error-message" style="color:red;">*Username must be at least 3 characters long.</p>
+                    <p *ngIf="!username.errors?.['required'] && username.value?.length > 30 && (username.dirty || username.touched)" class="error-message" style="color:red;">*Username cannot be more than 30 characters long.</p>
+                    <p *ngIf="!username.errors?.['required'] && !username.errors?.['maxlength'] && username.errors?.['pattern'] && (username.dirty || username.touched)" class="error-message" style="color:red;">*Username can contain only letters, numbers, underscores, hyphens, and periods.</p>
+                    <p class="error-message" style="color:red;">{{usernameError}}</p>
+                    <br>
+                    
+                    <span id="emailtitle" class="title">
+                        <img src="../../../assets/profile-settings/email.svg"> Email
+                    </span><br>
+                    <input class="input-field" type="email" placeholder="Please enter your email" [(ngModel)]="user.email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" #email="ngModel" disabled>
+                    <p *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message" style="color:red;"> *Please enter a valid email address </p>
+                    <br>
+
+                    <span id="organisationtitle" class="title">
+                        <img src="../../../assets/profile-settings/organisation.svg"> Organisation
+                    </span><br>
+                    <input class="input-field" type="text" placeholder="Please enter your email organisation" [(ngModel)]="user.organisation" name="organisation" maxlength="51" #organisation="ngModel">
+                    <p *ngIf="!organisation.errors?.['required'] && organisation.value?.length > 50 && (organisation.dirty || organisation.touched)" class="error-message" style="color:red;"> *Organisation cannot be longer than 50 characters </p>
+                    <br>
+
+                    <span id="departmenttitle" class="title">
+                        <img src="../../../assets/profile-settings/department.svg"> Department
+                    </span><br>
+                    <input class="input-field" type="text" placeholder="Please enter your email department" [(ngModel)]="user.department" name="department" maxlength="51" #department="ngModel">
+                    <p *ngIf="!department.errors?.['required'] && department.value?.length > 50 && (department.dirty || department.touched)" class="error-message" style="color:red;"> *Department cannot be longer than 50 characters </p>
+                    <br>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="save-cancel">
+        <button id="save" (click)="editProfile(user.id,editForm)">Save Changes</button>
+        <button id="cancel" (click)="toggleEditMode()">Cancel</button>
+    </div>
+</div>

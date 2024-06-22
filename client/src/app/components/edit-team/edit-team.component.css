@@ -1,0 +1,61 @@
+.overlay{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 60px 0px 60px;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    top: 50%;
+    left: 50%;
+    height: auto;
+    align-items: center;
+    background-color: white;
+    z-index: 9999;
+    box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+button{
+    padding: 5px 20px;
+    background-color:   white;
+    color: darkgray;
+    border: 1px solid darkgray;
+    border-radius: 25px;
+}
+button:hover{
+    background-color:   white;
+    color: #17315D;
+    border: 1px solid #17315D;
+}
+p-multiSelect{
+    margin: 20px 0px;
+}
+
+:host::ng-deep.p-multiselect-items
+{
+    height: 150px;
+    overflow: auto;
+}
+:host::ng-deep.p-multiselect-label{
+    width: 250px;
+}
+
+.editTeam{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    cursor: context-menu;
+    user-select: none;
+    margin-bottom: 15px;
+}
+
+input{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+::ng-deep .p-multiselect-filter-icon {
+    display: none !important;
+  }

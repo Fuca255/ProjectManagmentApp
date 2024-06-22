@@ -1,0 +1,21 @@
+<div class="wrapper">
+    <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+    >
+    <!-- <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div> -->
+    <p-progressSpinner  
+    strokeWidth="8" 
+    fill="rgba(51,51,51,0.0)" 
+    animationDuration=".8s" ariaLabel="loading" />
+    </ngx-spinner>
+    <app-header class="header" *ngIf="!isLoginPage()"/><br>
+    <app-sidenav *ngIf="!isLoginPage()"></app-sidenav>
+    <router-outlet class="app"></router-outlet>
+    <ng-toast></ng-toast>
+
+</div>

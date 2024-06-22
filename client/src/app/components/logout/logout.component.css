@@ -1,0 +1,8 @@
+#logout {
+    margin-bottom: 5px;
+}
+#logout:hover {
+    cursor: pointer;
+    background-color: #818f98;
+    border-radius: 10px;
+}

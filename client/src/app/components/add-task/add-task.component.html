@@ -1,0 +1,99 @@
+<div class="overlay-container">
+    <div class="overlay-content">
+        <div class="left">
+            <p><span style="color: crimson;">{{message}}</span></p>
+
+            <table>
+                <tr>
+                    <th colspan="2">
+                        <p><span class="name">Task title</span></p>
+                        <input class="input-field" id="title" type="text" placeholder=" Enter task title" [(ngModel)] = "createTaskObj.title">
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <p><span class="name">State: </span></p>
+                        
+                        <p-dropdown 
+                        [options]="states" 
+                        [(ngModel)]="selectedState" 
+                        optionLabel="name" 
+                        placeholder="Select a State" />
+                    </th>
+                    <th>
+                        <p><span class='name'>Priority: </span></p>
+                        <p-dropdown 
+                        [options]="priorities" 
+                        [(ngModel)]="selectedPriority" 
+                        optionLabel="description" 
+                        placeholder="Select a Priority" />
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <p><span class="name" id="startdate">Start Date: </span></p>
+                        
+                        <p-calendar 
+                        [(ngModel)]="StartDate" 
+                        dateFormat="dd.mm.yy" 
+                        placeholder="Select date"/>
+                    </th>
+                    <th>
+                        <p><span class="name" id="startdate">End Date: </span></p>
+                        
+                        <p-calendar 
+                        [(ngModel)]="EndDate" 
+                        dateFormat="dd.mm.yy" 
+                        placeholder="Select date"/>
+                    </th>
+                </tr>
+                    
+                <tr>
+                    <th>
+                        <p><span class="name" id="relatedproject">Related tasks</span><br></p>
+                        
+                        <p-multiSelect 
+                        [options]="assignments" 
+                        [(ngModel)]="selectedDependentOn" 
+                        optionLabel="title" 
+                        placeholder="Select Dependent Tasks" />
+                    </th>
+                    <th>
+                        <p><span class='name'>Task Group: </span></p>
+                        <p-dropdown 
+                        [options]="taskGroups" 
+                        [(ngModel)]="selectedTaskGroup" 
+                        optionLabel="title" 
+                        placeholder="Select a Task-Group" />
+                    </th>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <p style="font-weight: bold;"><span class='name'>Assignee: </span></p>
+                        <p-multiSelect 
+                        [options]="users" 
+                        [(ngModel)]="selectedAssignees" 
+                        optionLabel="fulname" 
+                        placeholder="Select Assignees" 
+                        [displaySelectedLabel]="true" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="right">
+            <div class="description">
+                <p><span class="name">Task Description</span></p>
+                <textarea class="input-field" id="description" placeholder="  Write your description" [(ngModel)] = "createTaskObj.description"></textarea>
+            </div>
+            
+            <div class="create-cancel">
+                <button class="close" (click)="closeOverlay()">Close</button>
+                <button class="create" (click)="createTask()">Create</button>
+                <button class="cancel" (click)="closeOverlay()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="wrapper">
+  <thy-layout>
+    <thy-header class="header-with-baseline">
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-title">Brisanje zavisnosti između taskova</h4>
+          <button
+            type="button"
+            class="btn-close"
+            aria-describedby="modal-title"
+            (click)="modal.close(false)"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>Da li ste sigurni da želite da obrišete zavisnost između taska <span class="text-primary">[{{selectedTask.source.title}}]</span>  i taksa <span class="text-danger">[{{selectedTask.target.title}}]</span>?</strong>
+          </p>
+          <!-- <p>
+            All information associated to this user profile will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="modal.close(false)">Ne</button>
+          <button type="button" class="btn btn-danger" (click)="modal.close(true)">Da</button>
+        </div>
+      </ng-template>
+      <ng-template #headerContent>
+              <mat-chip-listbox aria-label="Fish selection">
+              <mat-chip-option *ngFor="let view of views" 
+                          [selectable]="false"
+                          [selected]="view.value === selectedViewType" 
+                          (click)="selectView(view.value)">
+            {{view.name}}
+          </mat-chip-option>
+          <mat-chip id="refresh_btn" color="warn" (click)="refresh()"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;Refresh</mat-chip>
+          <mat-chip id="scrollToToday_btn" color="accent" (click)="scrollToToday()"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Scroll to today</mat-chip>
+          <mat-chip id="" color="accent" (click)="expandAllGroups()"><i class="fa" [ngClass]="expanded ? 'fa-compress' : 'fa-expand'" aria-hidden="true"></i>&nbsp;{{ expanded ? 'Collapse All groups' : 'Expand All groups' }}</mat-chip>
+          <mat-chip id="download_id" (click)="downloadGantt()"><span class="fa fa-download" aria-hidden="true"></span>&nbsp;<span>Download</span></mat-chip>
+        </mat-chip-listbox>
+      </ng-template>
+      
+    </thy-header>
+    <thy-content>
+    <ngx-gantt *ngIf="userProjectRole!==undefined" id="gantt_id"
+    #gantt
+    
+    [items]="items"
+    [groups]="groups"
+    [async]="true"
+    
+    
+    [baselineItems]="baselineItems"
+    [viewType]="viewType"
+    [draggable]="userProjectRole.name==='Project Manager'"
+    [linkable]="userProjectRole.name==='Project Manager'"
+    [selectable]="false"
+    [multiple]="true"
+    [viewOptions]="viewOptions"
+    [showToolbar]="isShowToolbarChecked"
+    [toolbarOptions]="toolbarOptions"
+    [loading]="loading"
+    [virtualScrollEnabled]="false"
+    (barClick)="barClick($event)"
+    (viewChange)="viewChange($event)"
+    (lineClick)="lineClick($event)"
+    (dragMoved)="dragMoved($event)"
+    (dragEnded)="dragEnded($event)"
+    (selectedChange)="selectedChange($event)"
+    (linkDragEnded)="linkDragEnded($event)"
+  >
+    <ngx-gantt-table
+      
+      [dropEnterPredicate]="dropEnterPredicate"
+      (dragDropped)="onDragDropped($event)"
+      (dragStarted)="onDragStarted($event)"
+      (dragEnded)="onDragEnded($event)"
+    >
+      <ngx-gantt-column name="Gantogram" width="160px" [showExpandIcon]="true" >
+        <ng-template #cell let-item="item"> {{ item.title }} </ng-template>
+      </ngx-gantt-column>
+      <ngx-gantt-column name="Starting time" width="200px">
+        <ng-template #cell let-item="item">
+          {{ item.start * 1000 | date : 'yyyy-MM-dd HH:mm' }}
+        </ng-template>
+      </ngx-gantt-column>
+      <ngx-gantt-column name="Deadline" width="200px">
+        <ng-template #cell let-item="item">
+          {{ item.end * 1000 | date : 'yyyy-MM-dd HH:mm' }}
+        </ng-template>
+      </ngx-gantt-column>
+    </ngx-gantt-table>
+    
+
+    
+
+
+
+
+      <ng-template #group let-group="group" let-items="items">
+          <span [ngClass]="{'podgrupa': group.id != '0'}" class="text-primary">
+            <i *ngIf="group.id!='0'" class ='fa fa-folder-open-o' aria-hidden="true"></i>&nbsp;&nbsp;{{ group.title }} 🚀
+          </span>
+      </ng-template>
+
+    
+    
+    <!-- <ng-template #group let-group="group" let-items="items">
+      <span [ngClass]="{'podgrupa': group.id != '0'}" class="text-primary"><i *ngIf="group.id!='0'" class="fa fa-folder-open-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ group.title }} 🚀 </span>
+    </ng-template> -->
+    <ng-template #bar let-item="item" style="z-index: -1;" >
+      <span style=" z-index: 100;" >&nbsp;&nbsp;{{ item.title }} </span>
+    </ng-template>
+  </ngx-gantt>
+</thy-content>
+</thy-layout>
+</div>

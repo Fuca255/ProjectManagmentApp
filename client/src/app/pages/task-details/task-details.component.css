@@ -1,0 +1,220 @@
+.overlay-container{
+    padding: 30px;
+    display: flexbox;
+    justify-content: center;    
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+input[type=text] {
+    border: 2px solid red;
+    border-radius: 4px;
+    height: 30px;
+    justify-content: center;
+    transition: width 0.4s ease-in-out;
+  }
+  
+input[type=text]:focus {
+    width: 100%;
+}
+
+.header{
+  display: flex;
+  align-items: center; /* Vertikalno centriranje elemenata */
+  gap: 10px;
+}
+
+.header .right-buttons {
+  margin-left: auto;
+}
+
+h1 {
+    font-size: 22px;
+    font-family: 'Poppins', sans-serif;
+    color: #222222;
+    font-weight: 500;
+}
+
+
+.overlay-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 95%;
+    background-color: white;
+    z-index: 9999;
+    box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+
+button{
+    padding: 10px 20px;
+    background-color:  white;
+    color: darkgray;
+    border: 1px solid darkgray;
+    border-radius: 25px;
+    margin-left: 20px;
+}
+
+
+button:hover{
+    background-color:   white;
+    color: #001B47;
+    border: 1px solid #001B47;
+}
+
+
+
+textarea{
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+    white-space: pre-line;
+    
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 90%;
+    bottom: 5px;
+}
+
+.selected-option {
+    display: block;
+    width: 100%;
+    height: 40px;
+    background: #FFFFFF;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.selected-option:hover {
+    background-color: #f0f0f0; /* Adjust hover background color as needed */
+}
+
+.options, option {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    z-index: 999;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.options.active, option.active {
+    display: block;
+}
+
+.options, .member-option .team-option, option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.option:hover, .member-option:hover, .team-option:hover, option:hover {
+    background-color: #f0f0f0; 
+}
+
+.option input[type="checkbox"],.member-option input[type="checkbox"],.team-option input[type="checkbox"] {
+    margin-right: 20px;
+    padding-right: 10px;
+    float: right;
+}
+
+.slidecontainer {
+    width: 100%;
+  }
+
+#pfp {
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    object-fit: cover;
+    border: 1px solid black;
+    background-color: #001B47;
+}
+
+img {
+    margin-bottom: 20px;
+}
+
+table {
+    font-family: 'Poppins', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  .edit{
+    float: right;
+    padding: 3px 10px;
+    position: relative;
+    bottom: 2px;
+  }
+  .cancel{
+    background-color: crimson;
+  }
+  .cancel:hover{
+    background-color: darkred;
+  }
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  #comments{
+    max-height: 400px;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+  }
+  .answer{
+    margin-left: 10%;
+  }
+
+  .overlay-container::-webkit-scrollbar {
+    width: 10px;               
+  }
+  
+  .overlay-container::-webkit-scrollbar-track {
+    background: none;  
+  }
+  
+  .overlay-container::-webkit-scrollbar-thumb {
+    background-color: #e9e9e9;    
+    border-radius: 20px;       
+    border: 3px solid darkgray; 
+  }
+
+  #comments::-webkit-scrollbar {
+    width: 10px;               
+  }
+  
+  #comments::-webkit-scrollbar-track {
+    background: none;  
+  }
+  
+  #comments::-webkit-scrollbar-thumb {
+    background-color: #e9e9e9;    
+    border-radius: 20px;       
+    border: 3px solid darkgray; 
+  }
+
+  

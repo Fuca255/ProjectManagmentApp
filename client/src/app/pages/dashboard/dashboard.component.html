@@ -1,0 +1,9 @@
+<div class="dashboard">
+    <h1>Dashboard</h1>
+    <div class="grid-container">
+        <div *ngIf="projects!==undefined" class="item graph"><app-project-status [projects]="projects"></app-project-status></div>
+        <div *ngIf="tasks!==undefined" class="item graph"><app-task-track [tasks]="tasks"></app-task-track></div>
+        <div *ngIf="projects!==undefined" class="item graph"><app-task-tags [projects]="projects"></app-task-tags></div>
+        <div *ngIf="projects!==undefined && tasks!==undefined" class="item graph"><app-project-weekly-analize [tasks]="tasks" [projects]="projects"></app-project-weekly-analize></div>
+    </div>
+</div>

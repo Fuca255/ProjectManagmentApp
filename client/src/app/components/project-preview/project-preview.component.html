@@ -1,0 +1,123 @@
+<div id="strana">
+  <app-projects #projectHeader [filter]="filter" *ngIf="showProjectPreview" (createdObject)="getCreatedProject($event)"></app-projects>
+  
+  <div class="projects">
+  
+    <div class="content">
+      <div *ngIf="projectsData && projectsData.length === 0 && !isLoading">
+        <h3>{{ errorMessage }}</h3>
+      </div>
+      <p-table class="grid-container" *ngIf="showProjectPreview"  [scrollable]="true" [virtualScroll]="true">
+        <article class="card" *ngFor="let project of getPaginatedProjects()" (mousedown)="check($event)" (click)="navigateToProjectDetails($event,project.id)">
+          <section class="card-content">
+            <div class="header-section">
+              <header class="title-wrapper">
+                <h1 [title]="project.title">{{ project.truncatedTitle }}</h1>
+              </header>
+              <img *ngIf="isManager && project.ownerId==loggedUser.user_id" class="cursor" src="assets\project-preview\edit.svg" alt="" (click)="openEditOverlay(project,$event)" />
+            </div>
+            <hr class="divider" />
+            <div class="elements">
+              <span class="status-label" [ngClass]="{
+                'ready': project.state.id === 2,
+                'in-progress': project.state.id === 3,
+                'done': project.state.id === 5,
+                'not-started': project.state.id === 1,
+                'cancelled': project.state.id === 6,
+                'blocked': project.state.id === 4
+              }">{{project.state.name}}</span>
+      
+              <span class="priority-label" [ngClass]="{
+                'low': project.priority.id === 4,
+                'at-risk': project.priority.id === 1,
+                'medium': project.priority.id === 3,
+                'high': project.priority.id === 2
+              }">{{project.priority.description}}</span>
+      
+            </div>
+      
+            <br><br>
+            <p class="description" [title]="project.description">{{ project.truncatedDescription }}</p>
+            <br>
+
+        <div class="bottom">
+          <div class="details">
+            <table>
+              <tr>
+                <th>Budget</th>
+                <th>{{project.budget}},00 $</th>
+              </tr>
+              <!-- <tr>
+                <th>Spent:</th>
+                <th>{{project.spent}}$</th>
+              </tr> -->
+              <tr>
+                <th>Percentage:</th>
+                <th>{{project.percentage}} %</th>
+              </tr>
+            </table>
+          </div>
+        
+          <hr class="divider" />
+              <div class="issue-section">
+                <div class="date-section">
+                  <table>
+                    <tr>
+                      <th>Start date:</th>
+                      <th><time *ngIf="project.start">{{ project.start | date: 'dd MMMM yyyy' }}</time></th>
+                    </tr>
+                    <tr>
+                      <th>End date:</th>
+                      <th><time *ngIf="project.end">{{ project.end | date: 'dd MMMM yyyy' }}</time></th>
+                    </tr>
+                  </table>
+                </div>
+                <div class="issue-details">
+                  <img src="assets\project-preview\issues.svg" alt=""/> 
+                   &nbsp; {{ project.assignmentCount === 0 ? ' No issues' : (project.assignmentCount === 1 ? ' 1 issue' : project.assignmentCount + ' issues') }}
+                </div>
+              </div>
+        </div>
+          </section>
+        </article>
+      </p-table>
+    </div>
+  
+    <div class="filters">
+      <app-project-filter #filter_sort_project [filter]="filter"/>
+    </div>
+  </div>
+  
+  <br><br>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" (click)="previousPage()" aria-label="Previous" (click)="currentPage = 1; navigateToPage(1)">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" (click)="previousPage()" aria-label="Previous">
+            <span aria-hidden="true">&#8249;</span>
+            </a>
+        </li>
+        <li class="page-item" *ngFor="let pageNumber of getDisplayedPageRange(currentPage, maxPages)">
+            <a class="page-link" [ngClass]="{ 'active': currentPage === pageNumber }" (click)="currentPage = pageNumber; navigateToPage(pageNumber)">
+            {{ pageNumber }}
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" (click)="nextPage()" aria-label="Next" disabled="isLastPage">
+            <span aria-hidden="true">&#8250;</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" (click)="nextPage()" aria-label="Next" disabled="isLastPage" (click)="currentPage = maxPages; navigateToPage(maxPages)">
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <!-- <li class="page-item">
+            <input type="number" (keyup.enter)="goToInputPage()" min="1" max="{{getTotalPages()}}" class="page-input" [(ngModel)]="desiredPage">
+        </li> -->
+    </ul>
+  </nav>

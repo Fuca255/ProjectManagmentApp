@@ -1,0 +1,11 @@
+#help{
+    margin-top: 35px;
+    flex-grow: 1;
+    width: 100%;
+    padding: 40px 0px 0px 40px;
+}
+
+#title{
+    font-size: 32px;
+    margin-top: 5px;
+}

@@ -1,0 +1,55 @@
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blobs {
+    width: 50%;
+    max-width: 670px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.blobs img {
+    width: 100%;
+}
+
+.flow {
+    width: 100%; 
+    max-width: 20%; 
+    margin-top: 20px; 
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.flow img {
+    max-width: 100%; 
+    height: auto; 
+}
+
+.reglog {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Centriranje na mobilnim uređajima */
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+@media (max-width: 768px) {
+    .reglog {
+        flex-direction: column; /* Postavljamo na kolonu na manjim ekranima */
+        text-align: center; /* Centriranje teksta na manjim ekranima */
+    }
+
+    .blobs{
+        display: none;
+    }
+}

@@ -1,0 +1,50 @@
+<table id="task-content" (mousedown)="check($event)" (click)="openShowTaskOverlay($event)">
+  <tr>
+      <th>
+          <span class="name" ><b>{{ task.title }}</b></span>
+      </th>
+      <th>
+          Status:
+      </th>
+      <th>
+          Priority:
+      </th>
+      <th>
+          Start date:
+      </th>
+      <th>
+          End date:
+      </th>
+      <th>
+        Time remaining:
+      </th>
+  </tr>
+  <tr>
+      <th>
+          <ngb-progressbar class="mb-3" type="info" [value]="task.percentage" [striped]="true" [animated]="true" height="20px"><i>{{task.percentage}}%</i></ngb-progressbar>
+      </th>
+      <th>
+          <div [ngClass]="getStateClass(task.state.name)"><b>{{ task.state.name }}</b></div>
+      </th>
+      <th>
+          <div [ngClass]="getPriorityClass(task.priority.description)"><b>{{ task.priority.description }}</b></div>
+      </th>
+      <th>
+          <div><img src="assets\project-task\date.svg" alt="" height="20" width="20"> &nbsp;
+          <span class="tekst">{{ task.startDate }}/{{ task.startMonth }}/{{ task.startYear }}</span></div>
+      </th>
+      <th>
+          <div><img src="assets\project-task\date.svg" alt="" height="20" width="20"> &nbsp;
+          <span class="tekst">{{ task.endDate }}/{{ task.endMonth }}/{{ task.endYear }}</span></div>
+      </th>
+      <th>
+        <div [ngClass]="getCorrectTime(task.remaining,task.timeDifference)">
+          <div class="vreme2">
+            <img src="assets\project-task\pie.svg" alt=""  height="20" width="20"> &nbsp; 
+            <span class="tekst"> <b>{{ getFloorRemaining(task.remaining) }}</b> 
+            </span>
+          </div>
+        </div>
+      </th>
+  </tr>
+</table>
